@@ -118,7 +118,7 @@ export function Sidebar({
             <Icon name="store" className="h-3.5 w-3.5 shrink-0 text-gray-400" />
             <span className="truncate">{storeName ?? 'Toko Anda'}</span>
           </div>
-          <div className="mt-1.5 text-[10px] text-gray-400">Simple-POS v1.4.0</div>
+          <div className="mt-1.5 text-[10px] text-gray-400">Simple-POS v1.5.0</div>
         </div>
       </aside>
     </>

@@ -7,6 +7,31 @@ versi mengikuti [Semantic Versioning](https://semver.org/lang/id/) —
 
 ---
 
+## [1.5.0] — 2026-09-01 — Dukungan Deploy Serverless (Vercel + Supabase + Upstash)
+
+Fokus: membuat aplikasi bisa live di Vercel (web & API) dengan database Supabase
+dan Redis Upstash. Panduan lengkap: [DEPLOYMENT.md](DEPLOYMENT.md).
+
+### Added
+- **Entry serverless Vercel untuk API** — `apps/api/api/index.ts` (adapter
+  `hono/vercel`) + `apps/api/vercel.json` (rewrite semua path ke fungsi,
+  `maxDuration` 30 dtk). Aplikasi Hono dipisah ke `src/app.ts`; `src/index.ts`
+  tetap menjadi entry long-lived untuk Docker/Fly/lokal — tidak ada perubahan
+  perilaku di lingkungan lama.
+- **Klien PostgreSQL kompatibel Supabase** — SSL otomatis untuk host non-lokal,
+  dan `prepare: false` otomatis saat memakai connection pooler transaction-mode
+  (port 6543) agar tidak terjadi error `prepared statement does not exist`;
+  pool per-instance diturunkan menjadi 5 agar ramah serverless.
+- **Panduan deploy produksi** — `DEPLOYMENT.md`: langkah Supabase (pooler +
+  migrasi), Upstash (`rediss://`), dua project Vercel (root directory monorepo,
+  env vars), urutan CORS, dan tabel gotcha umum beserta solusinya.
+
+### Fixed
+- URL Redis/DB kini divalidasi sebelum dipakai (modul `backend-url` di web
+  sejak v1.4.0; opsi koneksi DB dipusatkan di `db/client.ts`).
+
+---
+
 ## [1.4.0] — 2026-09-01 — Kelengkapan Operasional
 
 Fokus: menjadikan sistem utuh secara operasional — salah input bisa dibatalkan,

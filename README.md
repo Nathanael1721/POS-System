@@ -3,9 +3,9 @@
 Production-grade **Point of Sale (POS)** web application for small retail stores —
 product management, order processing, payment recording, and sales reporting.
 
-**Versi terkini: v1.4.0** — Kelengkapan Operasional (void order + audit viewer +
-dashboard owner + tren & export laporan + pengaturan toko nyata).
+**Versi terkini: v1.5.0** — Dukungan Deploy Serverless (Vercel + Supabase + Upstash).
 Riwayat lengkap per versi: [CHANGELOG.md](CHANGELOG.md) ·
+Panduan deploy: [DEPLOYMENT.md](DEPLOYMENT.md) ·
 Roadmap: [docs/18-development-roadmap](docs/18-development-roadmap.md)
 
 Monorepo (Turborepo) with TypeScript everywhere:

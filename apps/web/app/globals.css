@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  @apply bg-gray-100 text-gray-900 antialiased;
+}
+
+::selection {
+  @apply bg-brand-100 text-brand-900;
+}
+
+/* Subtle scrollbars that fit the light UI. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #d1d5db transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  background-color: #d1d5db;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Hide native number-input spinners; the UI uses explicit steppers/buttons. */
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* Receipt printing: show only the receipt, hide the rest of the app. */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .printable-receipt,
+  .printable-receipt *,
+  .printable-label,
+  .printable-label * {
+    visibility: visible;
+  }
+  .printable-receipt,
+  .printable-label {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0 8px;
+    box-shadow: none;
+  }
+  .no-print {
+    display: none !important;
+  }
+}

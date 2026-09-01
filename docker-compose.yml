@@ -1,0 +1,98 @@
+name: simplepos
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: simplepos
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U user -d simplepos']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+      target: build # dev target: has source + dev deps for hot reload
+    command: ['pnpm', '--filter', '@simplepos/api', 'dev']
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      NODE_ENV: development
+      PORT: '3001'
+      DATABASE_URL: postgresql://user:password@postgres:5432/simplepos
+      REDIS_URL: redis://redis:6379
+      ACCESS_TOKEN_SECRET: dev_access_token_secret_change_me_32
+      REFRESH_TOKEN_SECRET: dev_refresh_token_secret_change_me_32
+      FRONTEND_URL: http://localhost:3100
+      SENTRY_DSN: ''
+    ports:
+      - '3001:3001'
+    volumes:
+      - ./apps/api/src:/app/apps/api/src
+      - ./packages/shared/src:/app/packages/shared/src
+
+  # One-shot migration runner: `docker compose run --rm migrate`
+  migrate:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+      target: build
+    profiles: ['tools']
+    command: ['pnpm', '--filter', '@simplepos/api', 'migrate']
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgresql://user:password@postgres:5432/simplepos
+      REDIS_URL: redis://redis:6379
+      ACCESS_TOKEN_SECRET: dev_access_token_secret_change_me_32
+      REFRESH_TOKEN_SECRET: dev_refresh_token_secret_change_me_32
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      target: dev
+    restart: unless-stopped
+    depends_on:
+      - api
+    environment:
+      NODE_ENV: development
+      NEXT_PUBLIC_API_URL: http://localhost:3001
+    ports:
+      # Must match the port in apps/web's dev script (next dev -p 3100).
+      - '3100:3100'
+    volumes:
+      - ./apps/web:/app/apps/web
+      - ./packages/shared/src:/app/packages/shared/src
+      - /app/apps/web/.next
+      - /app/node_modules
+
+volumes:
+  postgres-data:

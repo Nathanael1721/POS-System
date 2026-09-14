@@ -22,11 +22,11 @@ export default function GlobalError({
         </div>
         <h2 className="text-base font-bold text-gray-900">Terjadi kesalahan</h2>
         <p className="mt-1.5 text-sm leading-relaxed text-gray-500">
-          Maaf, terjadi masalah saat menampilkan halaman ini. Sesi Anda tetap aman — coba muat
-          ulang, atau kembali ke halaman kasir.
+          Maaf, terjadi masalah saat menampilkan halaman ini. Sesi Anda tetap aman.
+          Coba muat ulang, atau kembali ke halaman kasir.
         </p>
         {error.digest && (
-          <p className="mt-2 font-mono text-[10px] text-gray-300">Kode: {error.digest}</p>
+          <p className="mt-2 font-mono text-[10px] text-gray-400">Kode: {error.digest}</p>
         )}
         <div className="mt-5 flex justify-center gap-2">
           <button

@@ -3,7 +3,7 @@
 Production-grade **Point of Sale (POS)** web application for small retail stores —
 product management, order processing, payment recording, and sales reporting.
 
-**Versi terkini: v1.5.0** — Dukungan Deploy Serverless (Vercel + Supabase + Upstash).
+**Versi terkini: v1.5.1** — Audit keamanan, aksesibilitas & dependensi.
 Riwayat lengkap per versi: [CHANGELOG.md](CHANGELOG.md) ·
 Panduan deploy: [DEPLOYMENT.md](DEPLOYMENT.md) ·
 Roadmap: [docs/18-development-roadmap](docs/18-development-roadmap.md)

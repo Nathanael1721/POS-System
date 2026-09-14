@@ -58,7 +58,7 @@ export default function ShiftHistoryPage() {
         <div className="mb-3 flex flex-wrap items-end justify-between gap-2">
           <div>
             <h1 className="text-lg font-bold tracking-tight text-gray-900">Riwayat Shift</h1>
-            <p className="text-xs text-gray-400">Rekonsiliasi kas per shift kasir</p>
+            <p className="text-xs text-gray-500">Rekonsiliasi kas per shift kasir</p>
           </div>
           <Select
             value={status}
@@ -90,7 +90,7 @@ export default function ShiftHistoryPage() {
             <div className="overflow-x-auto">
               <table className="w-full min-w-[680px] text-sm">
                 <thead>
-                  <tr className="border-b border-gray-100 bg-gray-50/70 text-left text-[11px] font-semibold uppercase tracking-wider text-gray-400">
+                  <tr className="border-b border-gray-100 bg-gray-50/70 text-left text-[11px] font-semibold uppercase tracking-wider text-gray-500">
                     <th className="py-2.5 pl-5">Dibuka</th>
                     <th>Status</th>
                     <th className="text-right">Order</th>
@@ -157,7 +157,7 @@ export default function ShiftHistoryPage() {
               <div className="space-y-3 text-sm">
                 <div>
                   <p className="font-medium text-gray-800">{detail.cashier_name ?? 'Kasir'}</p>
-                  <p className="mt-0.5 text-xs text-gray-400">
+                  <p className="mt-0.5 text-xs text-gray-500">
                     {formatDateTime(detail.shift.opened_at)}
                     {detail.shift.closed_at
                       ? ` — ${formatDateTime(detail.shift.closed_at)}`

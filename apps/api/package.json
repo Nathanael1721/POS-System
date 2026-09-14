@@ -1,6 +1,6 @@
 {
   "name": "@simplepos/api",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "private": true,
   "type": "module",
   "main": "dist/index.js",
@@ -20,7 +20,7 @@
     "@simplepos/shared": "workspace:*",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.5",
-    "hono": "^4.4.9",
+    "hono": "^4.13.7",
     "ioredis": "^5.4.1",
     "jose": "^5.4.1",
     "pino": "^9.2.0",

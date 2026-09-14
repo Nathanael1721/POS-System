@@ -118,7 +118,7 @@ export default function LoginPage() {
             )}
           </Button>
 
-          <p className="rounded-lg bg-gray-50 px-3 py-2 text-center text-[11px] leading-relaxed text-gray-400">
+          <p className="rounded-lg bg-gray-50 px-3 py-2 text-center text-[11px] leading-relaxed text-gray-500">
             Akun demo sudah terisi — tekan <span className="font-medium text-gray-500">Masuk</span>{' '}
             untuk mencoba
           </p>

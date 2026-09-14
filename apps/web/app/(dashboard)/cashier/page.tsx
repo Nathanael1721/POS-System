@@ -62,6 +62,12 @@ export default function CashierPage() {
   const [error, setError] = useState<string | null>(null);
 
   const [scanMsg, setScanMsg] = useState<{ ok: boolean; text: string } | null>(null);
+  // Scan feedback is transient: auto-dismiss so the chip never lingers on screen.
+  useEffect(() => {
+    if (!scanMsg) return;
+    const t = setTimeout(() => setScanMsg(null), 4000);
+    return () => clearTimeout(t);
+  }, [scanMsg]);
   const visibleProducts = useMemo(() => products, [products]);
 
   // Held (parked) carts survive page reloads via localStorage.
@@ -213,7 +219,7 @@ export default function CashierPage() {
   if (storeLoading) {
     return (
       <div className="grid h-full place-items-center">
-        <p className="text-sm text-gray-400">Memuat…</p>
+        <p className="text-sm text-gray-500">Memuat…</p>
       </div>
     );
   }
@@ -223,7 +229,7 @@ export default function CashierPage() {
     if (shift.loading) {
       return (
         <div className="grid h-full place-items-center">
-          <p className="text-sm text-gray-400">Memuat shift…</p>
+          <p className="text-sm text-gray-500">Memuat shift…</p>
         </div>
       );
     }
@@ -238,7 +244,7 @@ export default function CashierPage() {
         <div className="mb-3 flex gap-2">
           <IconInput
             icon={<Icon name="search" className="h-4 w-4" />}
-            placeholder="Cari nama / SKU — scan barcode lalu Enter…"
+            placeholder="Cari nama / SKU, scan barcode lalu Enter…"
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
             onKeyDown={(e) => {
@@ -250,7 +256,7 @@ export default function CashierPage() {
             ref={searchRef}
             autoFocus
           />
-          <div className="hidden shrink-0 items-center gap-1.5 self-center pl-1 text-[10px] text-gray-400 lg:flex">
+          <div className="hidden shrink-0 items-center gap-1.5 self-center pl-1 text-[10px] text-gray-500 lg:flex">
             <Kbd>F2</Kbd> cari
             <Kbd>F4</Kbd> tahan
             <Kbd>F8</Kbd> bayar
@@ -339,7 +345,7 @@ export default function CashierPage() {
     <>
       <div className="fixed inset-x-0 bottom-0 z-30 flex items-center gap-3 border-t border-gray-200 bg-white/95 px-4 py-2.5 shadow-[0_-4px_12px_-4px_rgb(0_0_0/0.08)] backdrop-blur lg:hidden">
         <div className="min-w-0 flex-1">
-          <p className="text-[11px] text-gray-400">{cart.itemCount} item di keranjang</p>
+          <p className="text-[11px] text-gray-500">{cart.itemCount} item di keranjang</p>
           <p className="truncate text-base font-bold tabular-nums text-gray-900">
             {formatCurrency(cart.total)}
           </p>
@@ -373,7 +379,7 @@ export default function CashierPage() {
                 type="button"
                 onClick={() => setCartOpen(false)}
                 aria-label="Tutup keranjang"
-                className="grid h-8 w-8 place-items-center rounded-lg text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600"
+                className="grid h-8 w-8 place-items-center rounded-lg text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-600"
               >
                 <Icon name="x" className="h-4 w-4" />
               </button>

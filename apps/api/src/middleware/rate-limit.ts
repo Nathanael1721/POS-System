@@ -30,6 +30,11 @@ function rateLimit(opts: RateLimitOptions): MiddlewareHandler<AppEnv> {
       const count = await redis.incr(redisKey);
       if (count === 1) {
         await redis.expire(redisKey, opts.windowSec);
+      } else if ((await redis.ttl(redisKey)) === -1) {
+        // Safety net: if the EXPIRE after INCR was missed (crash between the
+        // two calls), the counter would persist forever and lock the caller
+        // out permanently. Restore the window instead.
+        await redis.expire(redisKey, opts.windowSec);
       }
       if (count > opts.limit) {
         const ttl = await redis.ttl(redisKey);

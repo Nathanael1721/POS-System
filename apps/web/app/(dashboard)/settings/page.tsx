@@ -24,7 +24,7 @@ export default function SettingsPage() {
   if (!me) {
     return (
       <div className="grid h-full place-items-center p-6">
-        <p className="text-sm text-gray-400">Memuat…</p>
+        <p className="text-sm text-gray-500">Memuat…</p>
       </div>
     );
   }
@@ -33,7 +33,7 @@ export default function SettingsPage() {
     <div className="h-full overflow-y-auto p-4">
       <div className="mb-4">
         <h1 className="text-lg font-bold tracking-tight text-gray-900">Pengaturan</h1>
-        <p className="text-xs text-gray-400">Profil, keamanan, toko, dan staf</p>
+        <p className="text-xs text-gray-500">Profil, keamanan, toko, dan staf</p>
       </div>
       <div className="grid max-w-4xl gap-4 md:grid-cols-2">
         <ProfileSection me={me} onUpdated={setMe} />
@@ -462,7 +462,7 @@ function CashiersSection() {
             <div className="overflow-x-auto rounded-lg border border-gray-100">
               <table className="w-full min-w-[380px] text-sm">
                 <thead>
-                  <tr className="bg-gray-50/70 text-left text-[11px] font-semibold uppercase tracking-wider text-gray-400">
+                  <tr className="bg-gray-50/70 text-left text-[11px] font-semibold uppercase tracking-wider text-gray-500">
                     <th className="py-2 pl-3">Nama</th>
                     <th>Peran</th>
                     <th className="pr-3 text-right">Aksi</th>
@@ -473,7 +473,7 @@ function CashiersSection() {
                     <tr key={u.id} className={u.is_active ? '' : 'opacity-40'}>
                       <td className="py-2 pl-3">
                         <div className="font-medium text-gray-800">{u.name}</div>
-                        <div className="text-xs text-gray-400">{u.email}</div>
+                        <div className="text-xs text-gray-500">{u.email}</div>
                       </td>
                       <td>
                         <Badge variant={u.role === 'owner' ? 'brand' : 'neutral'}>
@@ -498,7 +498,7 @@ function CashiersSection() {
               </table>
             </div>
             {users[0] && (
-              <p className="mt-2 text-xs text-gray-400">
+              <p className="mt-2 text-xs text-gray-500">
                 Akun pertama dibuat {formatDateTime(users[0].created_at)}
               </p>
             )}

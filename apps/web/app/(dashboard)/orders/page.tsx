@@ -127,7 +127,7 @@ export default function OrdersPage() {
         <div className="mb-3 flex flex-wrap items-end justify-between gap-2">
           <div>
             <h1 className="text-lg font-bold tracking-tight text-gray-900">Pesanan</h1>
-            <p className="text-xs text-gray-400">Riwayat transaksi toko Anda</p>
+            <p className="text-xs text-gray-500">Riwayat transaksi toko Anda</p>
           </div>
           <div className="flex gap-2">
             <Input
@@ -172,7 +172,7 @@ export default function OrdersPage() {
             <div className="overflow-x-auto">
               <table className="w-full min-w-[620px] text-sm">
                 <thead>
-                  <tr className="border-b border-gray-100 bg-gray-50/70 text-left text-[11px] font-semibold uppercase tracking-wider text-gray-400">
+                  <tr className="border-b border-gray-100 bg-gray-50/70 text-left text-[11px] font-semibold uppercase tracking-wider text-gray-500">
                     <th className="py-2.5 pl-5">No. Pesanan</th>
                     <th>Waktu</th>
                     <th>Status</th>
@@ -247,13 +247,13 @@ export default function OrdersPage() {
                       {STATUS_META[selected.order.status]?.label ?? selected.order.status}
                     </Badge>
                   </div>
-                  <p className="mt-0.5 text-xs text-gray-400">{formatDateTime(selected.order.created_at)}</p>
+                  <p className="mt-0.5 text-xs text-gray-500">{formatDateTime(selected.order.created_at)}</p>
                 </div>
                 <ul className="divide-y divide-gray-100 rounded-lg bg-gray-50 px-3">
                   {selected.items.map((it) => (
                     <li key={it.id} className="flex justify-between gap-3 py-2">
                       <span className="min-w-0 flex-1 truncate text-gray-700">
-                        {it.product_name} <span className="text-gray-400">× {it.quantity}</span>
+                        {it.product_name} <span className="text-gray-500">× {it.quantity}</span>
                       </span>
                       <span className="font-medium tabular-nums text-gray-800">
                         {formatCurrency(it.subtotal)}
@@ -277,14 +277,16 @@ export default function OrdersPage() {
                     {selected.payment.reference ? ` · Ref: ${selected.payment.reference}` : ''}
                   </p>
                 )}
-                <Button
-                  variant="secondary"
-                  className="w-full"
-                  onClick={() => setReprint(buildReceipt(selected))}
-                >
-                  <Icon name="printer" className="h-4 w-4" />
-                  Cetak Ulang Struk
-                </Button>
+                {selected.payment && selected.order.status === 'paid' && (
+                  <Button
+                    variant="secondary"
+                    className="w-full"
+                    onClick={() => setReprint(buildReceipt(selected))}
+                  >
+                    <Icon name="printer" className="h-4 w-4" />
+                    Cetak Ulang Struk
+                  </Button>
+                )}
                 {selected.order.status === 'paid' && canVoid(selected.order) && (
                   <Button
                     variant="danger"

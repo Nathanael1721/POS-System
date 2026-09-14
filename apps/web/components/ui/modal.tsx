@@ -87,7 +87,7 @@ export function Modal({ title, onClose, children, className, dismissible = true 
               type="button"
               onClick={onClose}
               aria-label="Tutup"
-              className="grid h-7 w-7 place-items-center rounded-md text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600"
+              className="grid h-7 w-7 place-items-center rounded-md text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-600"
             >
               <Icon name="x" className="h-4 w-4" />
             </button>

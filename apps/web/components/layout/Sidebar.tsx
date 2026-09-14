@@ -69,13 +69,13 @@ export function Sidebar({
           </div>
           <div className="leading-tight">
             <div className="text-base font-bold tracking-tight text-gray-900">Simple-POS</div>
-            <div className="text-[11px] font-medium text-gray-400">Sistem Kasir Ritel</div>
+            <div className="text-[11px] font-medium text-gray-500">Sistem Kasir Ritel</div>
           </div>
           <button
             type="button"
             onClick={onClose}
             aria-label="Tutup menu"
-            className="ml-auto grid h-8 w-8 place-items-center rounded-lg text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600 lg:hidden"
+            className="ml-auto grid h-8 w-8 place-items-center rounded-lg text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-600 lg:hidden"
           >
             <Icon name="x" className="h-4 w-4" />
           </button>
@@ -83,7 +83,7 @@ export function Sidebar({
 
         {/* Navigation */}
         <nav className="flex flex-1 flex-col gap-0.5 overflow-y-auto px-3 py-2" aria-label="Menu utama">
-          <p className="px-3 pb-1.5 pt-2 text-[10px] font-semibold uppercase tracking-wider text-gray-400">
+          <p className="px-3 pb-1.5 pt-2 text-[10px] font-semibold uppercase tracking-wider text-gray-500">
             Menu
           </p>
           {items.map((item) => {
@@ -103,7 +103,7 @@ export function Sidebar({
               >
                 <Icon
                   name={item.icon}
-                  className={cn('h-[18px] w-[18px]', active ? 'text-brand-600' : 'text-gray-400')}
+                  className={cn('h-[18px] w-[18px]', active ? 'text-brand-600' : 'text-gray-500')}
                 />
                 {item.label}
                 {active && <span className="ml-auto h-1.5 w-1.5 rounded-full bg-brand-500" />}
@@ -115,10 +115,10 @@ export function Sidebar({
         {/* Store context */}
         <div className="mx-3 mb-3 rounded-lg bg-gray-50 px-3 py-2.5">
           <div className="flex items-center gap-2 truncate text-xs font-medium text-gray-500">
-            <Icon name="store" className="h-3.5 w-3.5 shrink-0 text-gray-400" />
+            <Icon name="store" className="h-3.5 w-3.5 shrink-0 text-gray-500" />
             <span className="truncate">{storeName ?? 'Toko Anda'}</span>
           </div>
-          <div className="mt-1.5 text-[10px] text-gray-400">Simple-POS v1.5.0</div>
+          <div className="mt-1.5 text-[10px] text-gray-500">Simple-POS v1.5.1</div>
         </div>
       </aside>
     </>

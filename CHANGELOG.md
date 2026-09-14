@@ -7,6 +7,35 @@ versi mengikuti [Semantic Versioning](https://semver.org/lang/id/) —
 
 ---
 
+## [1.5.1] — 2026-09-14 — Audit Keamanan, Aksesibilitas & Dependensi
+
+Hasil audit penuh (antislop Mode 2 + Mimosa deep scan + `pnpm audit`); laporan
+lengkap: [anti-slop/audit-001-2026-09-14.md](anti-slop/audit-001-2026-09-14.md).
+
+### Security
+- **Deteksi reuse refresh token**: token yang sudah dirotasi bila dipakai ulang
+  (indikasi pencurian) kini mencabut SELURUH keluarga sesi user (standar OAuth).
+  Teruji end-to-end: replay ditolak dan token penerus yang sah ikut ter-revoke.
+- **Logout tanpa `KEYS`**: indeks SET per-user menggantikan scan keyspace Redis
+  yang blocking O(N) (risiko stall saat user banyak).
+- **Rate limiter**: safety-net TTL mencegah counter tanpa kadaluarsa yang bisa
+  mengunci user 429 selamanya bila `EXPIRE` gagal setelah `INCR`.
+- **Dependensi**: `next` 14.2.4 → 14.2.35 dan `hono` → ≥4.12.34 (patch keamanan
+  kompatibel); `pnpm audit --prod` turun 66 → 38 temuan. Dua kritis tersisa
+  (RCE Next di Windows / AVIF) tidak reachable pada deployment Vercel-Linux dan
+  tanpa `next/image`; migrasi Next 15 dijadwalkan rilis berikutnya.
+
+### Fixed
+- **Kontras WCAG AA**: 80 kelas teks `text-gray-400/300` untuk konten bermakna
+  dinaikkan ke `gray-500` (4.8:1) di seluruh 21 file UI.
+- Chip umpan balik scan kini auto-hilang setelah 4 detik (sebelumnya menetap).
+- Tombol "Cetak Ulang Struk" hanya tampil untuk order lunas (sebelumnya bisa
+  mencetak struk dari order batal dengan metode bayar kosong).
+- Em dash (—) dihapus dari teks UI (placeholder kasir, error boundary, tabel
+  audit); emoji dihapus dari struk (printer thermal tidak merendernya).
+
+---
+
 ## [1.5.0] — 2026-09-01 — Dukungan Deploy Serverless (Vercel + Supabase + Upstash)
 
 Fokus: membuat aplikasi bisa live di Vercel (web & API) dengan database Supabase

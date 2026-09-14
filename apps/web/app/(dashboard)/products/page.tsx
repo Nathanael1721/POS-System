@@ -168,7 +168,7 @@ export default function ProductsPage() {
         <div className="mb-3 flex flex-wrap items-end justify-between gap-2">
           <div>
             <h1 className="text-lg font-bold tracking-tight text-gray-900">Produk</h1>
-            <p className="text-xs text-gray-400">Kelola katalog produk toko Anda</p>
+            <p className="text-xs text-gray-500">Kelola katalog produk toko Anda</p>
           </div>
           <div className="flex items-center gap-2">
             <button
@@ -207,7 +207,7 @@ export default function ProductsPage() {
             <div className="overflow-x-auto">
               <table className="w-full min-w-[680px] text-sm">
                 <thead>
-                  <tr className="border-b border-gray-100 bg-gray-50/70 text-left text-[11px] font-semibold uppercase tracking-wider text-gray-400">
+                  <tr className="border-b border-gray-100 bg-gray-50/70 text-left text-[11px] font-semibold uppercase tracking-wider text-gray-500">
                     <th className="py-2.5 pl-5">Produk</th>
                     <th>SKU / Barcode</th>
                     <th className="text-right">Harga</th>
@@ -222,7 +222,7 @@ export default function ProductsPage() {
                     <tr key={p.id} className="group transition-colors hover:bg-brand-50/40">
                       <td className="py-2.5 pl-5">
                         <div className="flex items-center gap-3">
-                          <div className="grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-lg bg-gray-100 text-gray-300">
+                          <div className="grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-lg bg-gray-100 text-gray-400">
                             {img ? (
                               // eslint-disable-next-line @next/next/no-img-element
                               <img
@@ -245,7 +245,7 @@ export default function ProductsPage() {
                       </td>
                       <td className="text-gray-500">
                         <div className="font-mono text-xs">{p.sku ?? '—'}</div>
-                        <div className="font-mono text-[11px] text-gray-400">{p.barcode ?? ''}</div>
+                        <div className="font-mono text-[11px] text-gray-500">{p.barcode ?? ''}</div>
                       </td>
                       <td className="text-right font-medium tabular-nums text-gray-800">
                         {formatCurrency(p.price)}
@@ -399,14 +399,14 @@ export default function ProductsPage() {
                     setFilePreview(null);
                   }}
                 />
-                <p className="my-2 text-center text-[11px] text-gray-400">— atau —</p>
+                <p className="my-2 text-center text-[11px] text-gray-500">— atau —</p>
                 <input
                   type="file"
                   accept="image/png,image/jpeg,image/webp,image/gif"
                   onChange={onFileChange}
                   className="block w-full text-xs text-gray-600 file:mr-2 file:cursor-pointer file:rounded-md file:border-0 file:bg-gray-100 file:px-2.5 file:py-1.5 file:text-xs file:font-medium file:text-gray-700 hover:file:bg-gray-200"
                 />
-                <p className="mt-2 text-[11px] text-gray-400">
+                <p className="mt-2 text-[11px] text-gray-500">
                   Maks 2 MB · PNG/JPG/WEBP/GIF · tersimpan di database
                 </p>
                 {previewSrc && (
@@ -518,7 +518,7 @@ function CategoryManager({
         {err && <p className="mt-2 text-sm text-red-600">{err}</p>}
         <div className="mt-3 flex flex-wrap gap-1.5">
           {categories.length === 0 ? (
-            <span className="text-xs text-gray-400">Belum ada kategori.</span>
+            <span className="text-xs text-gray-500">Belum ada kategori.</span>
           ) : (
             categories.map((c) => (
               <span
@@ -529,7 +529,7 @@ function CategoryManager({
                 <button
                   type="button"
                   onClick={() => del(c.id)}
-                  className="grid h-4 w-4 place-items-center rounded-full text-gray-400 transition-colors hover:bg-red-100 hover:text-red-500"
+                  className="grid h-4 w-4 place-items-center rounded-full text-gray-500 transition-colors hover:bg-red-100 hover:text-red-500"
                   aria-label={`Hapus kategori ${c.name}`}
                 >
                   <Icon name="x" className="h-3 w-3" />

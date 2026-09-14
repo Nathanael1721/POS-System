@@ -50,7 +50,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   if (!checked || !user) {
     return (
       <div className="grid h-screen place-items-center bg-gray-100">
-        <div className="flex flex-col items-center gap-3 text-gray-400">
+        <div className="flex flex-col items-center gap-3 text-gray-500">
           <div className="grid h-10 w-10 animate-pulse place-items-center rounded-xl bg-brand-600/90 text-white">
             <Icon name="store" className="h-5 w-5" />
           </div>

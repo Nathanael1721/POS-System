@@ -55,7 +55,7 @@ export function Header({ user, onMenu }: { user: PublicUser; onMenu?: () => void
         >
           <Icon name="menu" className="h-5 w-5" />
         </button>
-        <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-gray-400">
+        <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-gray-500">
           <Link href="/cashier" className="transition-colors hover:text-gray-600">
             Beranda
           </Link>
@@ -75,7 +75,7 @@ export function Header({ user, onMenu }: { user: PublicUser; onMenu?: () => void
           </div>
           <div className="hidden leading-tight sm:block">
             <div className="text-xs font-semibold text-gray-800">{user.name}</div>
-            <div className="text-[10px] capitalize text-gray-400">{user.role}</div>
+            <div className="text-[10px] capitalize text-gray-500">{user.role}</div>
           </div>
         </div>
         <Button variant="ghost" size="sm" onClick={handleLogout} title="Keluar dari akun">

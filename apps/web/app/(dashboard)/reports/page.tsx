@@ -88,7 +88,7 @@ export default function ReportsPage() {
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-lg font-bold tracking-tight text-gray-900">Laporan Penjualan</h1>
-          <p className="text-xs text-gray-400">Ringkasan performa toko Anda</p>
+          <p className="text-xs text-gray-500">Ringkasan performa toko Anda</p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
@@ -128,7 +128,7 @@ export default function ReportsPage() {
             </Button>
             <div className="min-w-[9.5rem] text-center">
               <div className="text-xs font-semibold text-gray-800">{windowLabel(period, anchor)}</div>
-              <div className="text-[10px] text-gray-400">{rangeLabel(period, anchor)}</div>
+              <div className="text-[10px] text-gray-500">{rangeLabel(period, anchor)}</div>
             </div>
             <Button
               variant="ghost"
@@ -193,7 +193,7 @@ export default function ReportsPage() {
           <Card className="mb-4">
             <CardHeader className="flex items-center justify-between">
               <CardTitle>Tren pendapatan</CardTitle>
-              <span className="text-xs text-gray-400">
+              <span className="text-xs text-gray-500">
                 {trend.length} {period === 'daily' ? 'hari' : period === 'weekly' ? 'minggu' : period === 'monthly' ? 'bulan' : 'tahun'} terakhir
               </span>
             </CardHeader>
@@ -205,7 +205,7 @@ export default function ReportsPage() {
           <Card>
             <CardHeader className="flex items-center justify-between">
               <CardTitle>Produk terlaris</CardTitle>
-              <span className="text-xs text-gray-400">{windowLabel(period, anchor)}</span>
+              <span className="text-xs text-gray-500">{windowLabel(period, anchor)}</span>
             </CardHeader>
             <CardContent>
               {top.length === 0 ? (
@@ -239,7 +239,7 @@ function TrendChart({ period, points }: { period: Period; points: ReportTrendPoi
         const isLast = i === points.length - 1;
         return (
           <div key={p.bucket} className="group flex min-w-0 flex-1 flex-col items-center gap-1">
-            <span className="w-full truncate text-center text-[9px] font-medium tabular-nums text-gray-400 opacity-0 transition-opacity group-hover:opacity-100 sm:text-[10px]">
+            <span className="w-full truncate text-center text-[9px] font-medium tabular-nums text-gray-500 opacity-0 transition-opacity group-hover:opacity-100 sm:text-[10px]">
               {formatCurrency(value)}
             </span>
             <div
@@ -250,7 +250,7 @@ function TrendChart({ period, points }: { period: Period; points: ReportTrendPoi
               style={{ height: `${pct}%` }}
               title={`${trendBucketLabel(period, p.bucket)}: ${formatCurrency(value)} (${p.orders} order)`}
             />
-            <span className="w-full truncate text-center text-[9px] text-gray-400 sm:text-[10px]">
+            <span className="w-full truncate text-center text-[9px] text-gray-500 sm:text-[10px]">
               {trendBucketLabel(period, p.bucket)}
             </span>
           </div>
@@ -265,7 +265,7 @@ function TopProductsTable({ top }: { top: TopProduct[] }) {
   return (
     <table className="w-full min-w-[540px] text-sm">
       <thead>
-        <tr className="border-b border-gray-100 text-left text-[11px] font-semibold uppercase tracking-wider text-gray-400">
+        <tr className="border-b border-gray-100 text-left text-[11px] font-semibold uppercase tracking-wider text-gray-500">
           <th className="pb-2.5">#</th>
           <th>Produk</th>
           <th className="w-1/3">Relatif</th>
@@ -286,7 +286,7 @@ function TopProductsTable({ top }: { top: TopProduct[] }) {
                       ? 'bg-gray-200 text-gray-600'
                       : i === 2
                         ? 'bg-orange-100 text-orange-700'
-                        : 'bg-gray-100 text-gray-400',
+                        : 'bg-gray-100 text-gray-500',
                 )}
               >
                 {i + 1}
@@ -314,7 +314,7 @@ function Stat({ icon, label, value }: { icon: IconName; label: string; value: st
   return (
     <Card>
       <CardContent className="p-4">
-        <div className="mb-2 flex items-center gap-2 text-xs font-medium text-gray-400">
+        <div className="mb-2 flex items-center gap-2 text-xs font-medium text-gray-500">
           <span className="grid h-7 w-7 place-items-center rounded-lg bg-brand-50 text-brand-600">
             <Icon name={icon} className="h-3.5 w-3.5" />
           </span>

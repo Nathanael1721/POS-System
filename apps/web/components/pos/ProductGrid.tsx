@@ -74,7 +74,7 @@ export function ProductGrid({ products, loading, onSelect, lowThreshold = 5 }: P
                   }}
                 />
               ) : (
-                <Icon name="package" className="h-8 w-8 text-gray-300" />
+                <Icon name="package" className="h-8 w-8 text-gray-400" />
               )}
               {out && (
                 <span className="absolute inset-0 grid place-items-center bg-white/60 text-xs font-semibold text-red-600">

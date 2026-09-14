@@ -39,8 +39,8 @@ export function ReceiptModal({ receipt, onClose }: { receipt: Receipt; onClose: 
             {receipt.store_name}
           </h2>
           <p className="mt-1 font-mono text-xs text-gray-500">{receipt.order_number}</p>
-          <p className="text-xs text-gray-400">{formatDateTime(receipt.created_at)}</p>
-          {receipt.cashier_name && <p className="text-xs text-gray-400">Kasir: {receipt.cashier_name}</p>}
+          <p className="text-xs text-gray-500">{formatDateTime(receipt.created_at)}</p>
+          {receipt.cashier_name && <p className="text-xs text-gray-500">Kasir: {receipt.cashier_name}</p>}
         </div>
 
         {/* Items */}
@@ -49,7 +49,7 @@ export function ReceiptModal({ receipt, onClose }: { receipt: Receipt; onClose: 
             <li key={i} className="flex justify-between gap-3">
               <span className="min-w-0 flex-1 text-gray-700">
                 <span className="font-medium">{it.product_name}</span>
-                <span className="text-gray-400"> × {it.quantity}</span>
+                <span className="text-gray-500"> × {it.quantity}</span>
               </span>
               <span className="font-medium tabular-nums text-gray-800">
                 {formatCurrency(it.subtotal)}
@@ -84,8 +84,8 @@ export function ReceiptModal({ receipt, onClose }: { receipt: Receipt; onClose: 
           {receipt.reference && <Line label="Ref" value={receipt.reference} />}
         </div>
 
-        <p className="border-t border-dashed border-gray-300 pb-1 pt-3 text-center text-xs text-gray-400">
-          Terima kasih atas kunjungan Anda 🙏
+        <p className="border-t border-dashed border-gray-300 pb-1 pt-3 text-center text-xs text-gray-500">
+          Terima kasih atas kunjungan Anda
         </p>
 
         <div className="no-print mt-4 flex gap-2">

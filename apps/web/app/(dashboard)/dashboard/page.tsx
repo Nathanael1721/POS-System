@@ -50,7 +50,7 @@ export default function DashboardPage() {
     <div className="h-full overflow-y-auto p-4 pb-8">
       <div className="mb-4">
         <h1 className="text-lg font-bold tracking-tight text-gray-900">Beranda</h1>
-        <p className="text-xs text-gray-400">Ringkasan toko Anda hari ini</p>
+        <p className="text-xs text-gray-500">Ringkasan toko Anda hari ini</p>
       </div>
 
       {loading ? (
@@ -80,7 +80,7 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             {top.length === 0 ? (
-              <p className="py-6 text-center text-sm text-gray-400">Belum ada penjualan hari ini.</p>
+              <p className="py-6 text-center text-sm text-gray-500">Belum ada penjualan hari ini.</p>
             ) : (
               <ul className="divide-y divide-gray-100">
                 {top.map((p, i) => (
@@ -89,7 +89,7 @@ export default function DashboardPage() {
                       className={
                         i === 0
                           ? 'grid h-6 w-6 shrink-0 place-items-center rounded-full bg-amber-100 text-[11px] font-bold text-amber-700'
-                          : 'grid h-6 w-6 shrink-0 place-items-center rounded-full bg-gray-100 text-[11px] font-bold text-gray-400'
+                          : 'grid h-6 w-6 shrink-0 place-items-center rounded-full bg-gray-100 text-[11px] font-bold text-gray-500'
                       }
                     >
                       {i + 1}
@@ -115,7 +115,7 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             {openShifts.length === 0 ? (
-              <p className="py-6 text-center text-sm text-gray-400">Tidak ada shift terbuka.</p>
+              <p className="py-6 text-center text-sm text-gray-500">Tidak ada shift terbuka.</p>
             ) : (
               <ul className="space-y-2.5">
                 {openShifts.map((s) => (
@@ -124,7 +124,7 @@ export default function DashboardPage() {
                       <Badge variant="brand" dot>
                         Terbuka
                       </Badge>
-                      <span className="text-[11px] text-gray-400">{formatDateTime(s.opened_at)}</span>
+                      <span className="text-[11px] text-gray-500">{formatDateTime(s.opened_at)}</span>
                     </div>
                     <div className="mt-1.5 flex justify-between text-sm">
                       <span className="text-gray-500">Penjualan</span>
@@ -153,7 +153,7 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             {lowStock.length === 0 ? (
-              <p className="py-6 text-center text-sm text-gray-400">
+              <p className="py-6 text-center text-sm text-gray-500">
                 Semua produk stoknya sehat. 👍
               </p>
             ) : (
@@ -178,7 +178,7 @@ function LowStockRow({ product, threshold }: { product: Product; threshold: numb
       </div>
       <div className="min-w-0 flex-1">
         <p className="truncate text-sm font-medium text-gray-800">{product.name}</p>
-        <p className="text-xs text-gray-400">{formatCurrency(product.price)}</p>
+        <p className="text-xs text-gray-500">{formatCurrency(product.price)}</p>
       </div>
       {product.stock <= 0 ? (
         <Badge variant="danger">Habis</Badge>
@@ -194,7 +194,7 @@ function Stat({ icon, label, value }: { icon: IconName; label: string; value: st
   return (
     <Card>
       <CardContent className="p-4">
-        <div className="mb-2 flex items-center gap-2 text-xs font-medium text-gray-400">
+        <div className="mb-2 flex items-center gap-2 text-xs font-medium text-gray-500">
           <span className="grid h-7 w-7 place-items-center rounded-lg bg-brand-50 text-brand-600">
             <Icon name={icon} className="h-3.5 w-3.5" />
           </span>

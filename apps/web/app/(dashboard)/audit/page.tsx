@@ -53,7 +53,7 @@ export default function AuditPage() {
       <div className="mb-3 flex flex-wrap items-end justify-between gap-2">
         <div>
           <h1 className="text-lg font-bold tracking-tight text-gray-900">Audit Log</h1>
-          <p className="text-xs text-gray-400">Jejak semua aksi yang mengubah data toko</p>
+          <p className="text-xs text-gray-500">Jejak semua aksi yang mengubah data toko</p>
         </div>
         <IconInput
           icon={<Icon name="search" className="h-4 w-4" />}
@@ -84,7 +84,7 @@ export default function AuditPage() {
             <div className="overflow-x-auto">
               <table className="w-full min-w-[720px] text-sm">
                 <thead>
-                  <tr className="border-b border-gray-100 bg-gray-50/70 text-left text-[11px] font-semibold uppercase tracking-wider text-gray-400">
+                  <tr className="border-b border-gray-100 bg-gray-50/70 text-left text-[11px] font-semibold uppercase tracking-wider text-gray-500">
                     <th className="py-2.5 pl-5">Waktu</th>
                     <th>Pengguna</th>
                     <th>Aksi</th>
@@ -98,11 +98,11 @@ export default function AuditPage() {
                       <td className="whitespace-nowrap py-2.5 pl-5 text-gray-600">
                         {formatDateTime(log.created_at)}
                       </td>
-                      <td className="text-gray-800">{log.user_name ?? '—'}</td>
+                      <td className="text-gray-800">{log.user_name ?? '-'}</td>
                       <td>
                         <Badge variant={actionBadge(log.action)}>{log.action}</Badge>
                       </td>
-                      <td className="font-mono text-xs text-gray-400">{log.ip_address ?? '—'}</td>
+                      <td className="font-mono text-xs text-gray-500">{log.ip_address ?? '-'}</td>
                       <td className="pr-5">
                         {log.payload && Object.keys(log.payload as object).length > 0 ? (
                           <details className="group">
@@ -114,7 +114,7 @@ export default function AuditPage() {
                             </pre>
                           </details>
                         ) : (
-                          <span className="text-xs text-gray-300">—</span>
+                          <span className="text-xs text-gray-400">-</span>
                         )}
                       </td>
                     </tr>

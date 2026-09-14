@@ -114,8 +114,8 @@ export function CartPanel({
               <div className="mx-auto mb-2.5 grid h-11 w-11 place-items-center rounded-full bg-gray-100 text-gray-300">
                 <Icon name="shopping-bag" className="h-5 w-5" />
               </div>
-              <p className="text-sm text-gray-400">Keranjang masih kosong</p>
-              <p className="mt-0.5 text-xs text-gray-300">Klik produk untuk menambahkan</p>
+              <p className="text-sm text-gray-500">Keranjang masih kosong</p>
+              <p className="mt-0.5 text-xs text-gray-500">Klik produk untuk menambahkan</p>
             </div>
           </div>
         ) : (
@@ -124,7 +124,7 @@ export function CartPanel({
               <li key={line.product.id} className="flex items-center gap-3 py-2.5">
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm font-medium text-gray-800">{line.product.name}</p>
-                  <p className="mt-0.5 text-xs tabular-nums text-gray-400">
+                  <p className="mt-0.5 text-xs tabular-nums text-gray-500">
                     {formatCurrency(line.product.price)} / item
                   </p>
                 </div>
@@ -135,7 +135,7 @@ export function CartPanel({
                     type="button"
                     onClick={() => cart.setQty(line.product.id, line.quantity - 1)}
                     aria-label={`Kurangi ${line.product.name}`}
-                    className="grid h-full w-7 place-items-center text-gray-400 transition-colors hover:text-brand-600 disabled:opacity-30"
+                    className="grid h-full w-7 place-items-center text-gray-500 transition-colors hover:text-brand-600 disabled:opacity-30"
                     disabled={line.quantity <= 1}
                   >
                     <Icon name="minus" className="h-3.5 w-3.5" />
@@ -153,7 +153,7 @@ export function CartPanel({
                     type="button"
                     onClick={() => cart.setQty(line.product.id, line.quantity + 1)}
                     aria-label={`Tambah ${line.product.name}`}
-                    className="grid h-full w-7 place-items-center text-gray-400 transition-colors hover:text-brand-600 disabled:opacity-30"
+                    className="grid h-full w-7 place-items-center text-gray-500 transition-colors hover:text-brand-600 disabled:opacity-30"
                     disabled={line.quantity >= line.product.stock}
                   >
                     <Icon name="plus" className="h-3.5 w-3.5" />
@@ -165,7 +165,7 @@ export function CartPanel({
                 </span>
                 <button
                   onClick={() => cart.remove(line.product.id)}
-                  className="grid h-6 w-6 place-items-center rounded-md text-gray-300 transition-colors hover:bg-red-50 hover:text-red-500"
+                  className="grid h-6 w-6 place-items-center rounded-md text-gray-500 transition-colors hover:bg-red-50 hover:text-red-500"
                   aria-label={`Hapus ${line.product.name}`}
                 >
                   <Icon name="x" className="h-3.5 w-3.5" />
@@ -266,7 +266,7 @@ export function CartPanel({
             </div>
             <div className="flex items-center gap-2">
               <label className="relative flex-1">
-                <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm font-medium text-gray-400">
+                <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm font-medium text-gray-500">
                   Rp
                 </span>
                 <Input

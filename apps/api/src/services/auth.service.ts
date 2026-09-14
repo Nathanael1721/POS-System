@@ -21,6 +21,26 @@ function refreshKey(userId: string, tokenHash: string): string {
   return `refresh:${userId}:${tokenHash}`;
 }
 
+/**
+ * Per-user index of live refresh-token hashes. Replaces a keyspace-wide
+ * `KEYS` scan for logout (O(N) blocking on Redis) and enables token-reuse
+ * detection: an unknown-but-valid token means a rotated (possibly stolen)
+ * token is being replayed, so the whole session family gets revoked.
+ */
+function refreshSetKey(userId: string): string {
+  return `refresh_set:${userId}`;
+}
+
+/** Revoke every refresh token issued to a user (logout / reuse response). */
+async function revokeAllSessions(userId: string): Promise<void> {
+  const setKey = refreshSetKey(userId);
+  const hashes = await redis.smembers(setKey);
+  if (hashes.length > 0) {
+    await redis.del(...hashes.map((h) => refreshKey(userId, h)));
+  }
+  await redis.del(setKey);
+}
+
 function toPublicUser(row: PublicUser & { password_hash?: string }): PublicUser {
   const { password_hash: _omit, ...rest } = row as PublicUser & { password_hash?: string };
   return rest;
@@ -77,12 +97,17 @@ async function issueTokens(input: {
   const access_token = await signAccessToken(input);
   const refresh_token = await signRefreshToken({ userId: input.userId, jti });
 
+  const tokenHash = hashToken(refresh_token);
+  const setKey = refreshSetKey(input.userId);
   await redis.set(
-    refreshKey(input.userId, hashToken(refresh_token)),
+    refreshKey(input.userId, tokenHash),
     JSON.stringify({ jti, store_id: input.storeId, role: input.role }),
     'EX',
     REFRESH_TTL_SECONDS,
   );
+  // Index the live hash for O(sessions) revocation instead of a KEYS scan.
+  await redis.sadd(setKey, tokenHash);
+  await redis.expire(setKey, REFRESH_TTL_SECONDS);
 
   return { access_token, refresh_token };
 }
@@ -93,10 +118,14 @@ async function issueTokens(input: {
  */
 export async function refresh(refreshToken: string): Promise<{ access_token: string; refresh_token: string }> {
   const payload = await verifyRefreshToken(refreshToken);
-  const key = refreshKey(payload.sub, hashToken(refreshToken));
+  const tokenHash = hashToken(refreshToken);
+  const key = refreshKey(payload.sub, tokenHash);
 
   const stored = await redis.get(key);
   if (!stored) {
+    // Signature valid but unknown to Redis: this token was already rotated
+    // (or forged). Treat replay as theft and revoke the whole session family.
+    await revokeAllSessions(payload.sub);
     throw new AuthError('Refresh token has been revoked or expired');
   }
 
@@ -108,22 +137,19 @@ export async function refresh(refreshToken: string): Promise<{ access_token: str
   `;
   const user = rows[0];
   if (!user || !user.is_active) {
-    await redis.del(key);
+    await revokeAllSessions(payload.sub);
     throw new AuthError('User no longer active');
   }
 
-  // Rotate: delete the old token before issuing a new one.
+  // Rotate: remove the old token from the index before issuing a new pair.
   await redis.del(key);
+  await redis.srem(refreshSetKey(payload.sub), tokenHash);
   return issueTokens({ userId: user.id, storeId: user.store_id, role: user.role });
 }
 
 /** Revoke every refresh token for a user (logout). */
 export async function logout(userId: string): Promise<void> {
-  const pattern = refreshKey(userId, '*');
-  const keys = await redis.keys(pattern);
-  if (keys.length > 0) {
-    await redis.del(...keys);
-  }
+  await revokeAllSessions(userId);
 }
 
 /** Fetch the current user as a public (password-free) object. */
